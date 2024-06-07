@@ -35,7 +35,9 @@ export const login = async(req, res) => {
   if(!user) return res.status(401).json({messsege:"Invalid Credentials! "})
 
   // CHECK IF THE PASSWORD IS CORRECT
-  
+  const isPasswordValid=await bcrypt.compare(password, user.password);
+  if(!isPasswordValid) return res.status(401).json({messsege:"Invalid Credentials! "})
+
 
   // GENERATE COOKIE TOKEN AND SEND TO THE USER
 };
