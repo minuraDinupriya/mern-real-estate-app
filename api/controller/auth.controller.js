@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import prisma from "../lib/prisma.js";
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
@@ -44,11 +44,18 @@ export const login = async (req, res) => {
     // GENERATE COOKIE TOKEN AND SEND TO THE USER
     // res.setHeader("Set-Cookie", "test=" + "myValue").json("success! ");
 
-    
-
     const age = 1000 * 60 * 60 * 24 * 7;
+
+    const token = jwt.sign(
+      {
+        id: user.id,
+      },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: age }
+    );
+
     res
-      .cookie("test2", "myValue2", {
+      .cookie("token", token, {
         httpOnly: true,
         // secure:true
         maxAge: age,
