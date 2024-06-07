@@ -3,6 +3,7 @@ import postRoute from "./routes/post.route.js"
 import authRoute from "./routes/auth.route.js"
 
 const app=express();
+console.log(1);
 
 app.use(express.json())
 
