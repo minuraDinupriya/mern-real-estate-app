@@ -25,8 +25,19 @@ export const register = async (req, res) => {
 
   }
 };
-export const login = (req, res) => {
-  //dp operations
+export const login = async(req, res) => {
+  
+  // CHECK IF THE USER EXISTS
+  const user=prisma.user.findUnique({
+    where:{username:username}
+  })
+
+  if(!user) return res.status(401).json({messsege:"Invalid Credentials! "})
+
+  // CHECK IF THE PASSWORD IS CORRECT
+  
+
+  // GENERATE COOKIE TOKEN AND SEND TO THE USER
 };
 export const logout = (req, res) => {
   //dp operations
