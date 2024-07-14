@@ -19,10 +19,10 @@ export const register = async (req, res) => {
       },
     });
     console.log(newUser);
-    res.status(201).json({ messsege: "User created successfully" });
+    res.status(201).json({ message: "User created successfully" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ messsege: "Failed to create user" });
+    res.status(500).json({ message: "Failed to create user" });
   }
 };
 export const login = async (req, res) => {
@@ -34,12 +34,12 @@ export const login = async (req, res) => {
     });
 
     if (!user)
-      return res.status(401).json({ messsege: "Invalid Credentials! " });
+      return res.status(401).json({ message: "Invalid Credentials! " });
 
     // CHECK IF THE PASSWORD IS CORRECT
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid)
-      return res.status(401).json({ messsege: "Invalid Credentials! " });
+      return res.status(401).json({ message: "Invalid Credentials! " });
 
     // GENERATE COOKIE TOKEN AND SEND TO THE USER
     // res.setHeader("Set-Cookie", "test=" + "myValue").json("success! ");
@@ -64,9 +64,9 @@ export const login = async (req, res) => {
       .json("Login Successful! ");
   } catch (err) {
     console.log(err);
-    res.status(500).json({ messege: "Failed to login! " });
+    res.status(500).json({ message: "Failed to login! " });
   }
 };
 export const logout = (req, res) => {
-  res.clearCookie("token").status(200).json({messege: "Logout Successfully! "})
+  res.clearCookie("token").status(200).json({message: "Logout Successfully! "})
 };
