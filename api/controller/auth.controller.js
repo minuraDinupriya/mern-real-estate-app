@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import prisma from "../lib/prisma.js";
 import jwt from "jsonwebtoken";
 
+// CREATING A USER
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -25,6 +26,8 @@ export const register = async (req, res) => {
     res.status(500).json({ message: "Failed to create user" });
   }
 };
+
+// LOGIN USING CREDENTIALS
 export const login = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -54,6 +57,8 @@ export const login = async (req, res) => {
       { expiresIn: age }
     );
 
+    const { password: userPassword, ...userInfo } = user;
+
     res
       .cookie("token", token, {
         httpOnly: true,
@@ -61,12 +66,17 @@ export const login = async (req, res) => {
         maxAge: age,
       })
       .status(200)
-      .json("Login Successful! ");
+      .json(userInfo);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to login! " });
   }
 };
+
+// LOGOUT
 export const logout = (req, res) => {
-  res.clearCookie("token").status(200).json({message: "Logout Successfully! "})
+  res
+    .clearCookie("token")
+    .status(200)
+    .json({ message: "Logout Successfully! " });
 };
