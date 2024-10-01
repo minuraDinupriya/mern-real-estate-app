@@ -15,6 +15,10 @@ const addUser = (userId, socketId) => {
   }
 };
 
+const removeUser = (socketId) => {
+  onlineUser = onlineUser.filter((user) => user.socketId !== socketId);
+};
+
 
 
 io.listen("4000");
