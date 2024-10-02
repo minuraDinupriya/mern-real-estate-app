@@ -19,6 +19,10 @@ const removeUser = (socketId) => {
   onlineUser = onlineUser.filter((user) => user.socketId !== socketId);
 };
 
+const getUser = (userId) => {
+  return onlineUser.find((user) => user.userId === userId);
+};
+
 
 
 io.listen("4000");
